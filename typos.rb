@@ -1,13 +1,10 @@
 def input_students
-  # get the first name
   name = gets.chomp
   while !name.empty?
-  # add the student hash to the array
     @students << {name: name.to_sym, cohort: :november}
     puts "Now we have #{@students.count} students"
     name = gets.chomp
   end
-  # return the array of students
   @students
 end
 
@@ -44,6 +41,8 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit
     else
@@ -60,7 +59,20 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "9. Exit" # 9 because we'll be adding more items  
+  puts "3. Save the list to students.csv"
+  puts "9. Exit" 
+end
+
+def save_students
+  file = File.open("students.csv", "w")
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 interactive_menu
+
+
