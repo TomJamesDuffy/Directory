@@ -1,4 +1,5 @@
-# put students into an array
+# Put current students into an array of hashes.
+ 
 students = [
  {name: "Dr. Hannibal Lecter", cohort: :november},
  {name: "Darth Vader",cohort: :november},
@@ -13,10 +14,29 @@ students = [
  {name: "Norman Bates",cohort: :november}
 ]
 
+# Method to add additional students as required
+
+def input_students(current_students)
+  puts "Please enter the students name"
+  puts "To cease entering names hit enter twice"
+  input_name = gets.chomp
+  # create empty array
+  while !input_name.empty? do
+    current_students << {name: input_name, cohort: :november}
+    puts "we now have #{current_students.count} students"
+    input_name = gets.chomp
+  end
+  current_students
+end
+
+# Method to print the header
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
+
+# Method to print each student 
 
 def print(students)
   students.each do |student|
@@ -24,10 +44,14 @@ def print(students)
   end
 end
 
+# Method to print each student
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
+# Call methods and print output
+input_students(students)
 print_header
 print(students)
 print_footer(students)
