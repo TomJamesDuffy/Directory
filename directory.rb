@@ -2,14 +2,14 @@
  
 students = [
  {name: "Dr. Hannibal Lecter", cohort: :november, hobbies: "art"}, # Ex 5 - Added hobbies
- {name: "Darth Vader",cohort: :november, hobbies: "art"},
+ {name: "Darth Vader",cohort: :february, hobbies: "art"},
  {name: "Nurse Ratched",cohort: :november, hobbies: "art"},
  {name: "Michael Corleone",cohort: :november, hobbies: "art"},
  {name: "Alex DeLarge",cohort: :november, hobbies: "art"},
  {name: "The Wicked Witch of the West",cohort: :november, hobbies: "art"},
- {name: "Terminator",cohort: :november, hobbies: "art"},
+ {name: "Terminator",cohort: :march, hobbies: "art"},
  {name: "Freddy Krueger",cohort: :november, hobbies: "art"},
- {name: "The Joker",cohort: :november, hobbies: "art"},
+ {name: "The Joker",cohort: :february, hobbies: "art"},
  {name: "Joffrey Baratheon",cohort: :november, hobbies: "art"},
  {name: "Norman Bates",cohort: :november, hobbies: "art"}
 ]
@@ -65,7 +65,6 @@ def input_students(current_students) # Ex 7 - Requests name, cohort, hobbies, de
       finished = true
     end
   end
-  print(current_students)
   current_students
 end
 
@@ -79,11 +78,28 @@ end
 # Method to print each student 
 
 def print(students)
-  count = 0
-  while count < students.length # Ex 4 - Replace each for while.
-    puts "#{count + 1}. #{students[count][:name]} (#{students[count][:cohort]} cohort) #{students[count][:hobbies]}".center(100) 
-    count += 1
+  cohort_array = []
+# Ex 8 - Print out students grouped by cohort.
+  students.each do |s|
+    cohort_array.push(s[:cohort])
   end
+  cohort_array.uniq.each do |x|
+    puts x
+    students.each do |s|
+      if s[:cohort] == x
+        puts s
+      end
+    end
+  end
+
+# Ex 4 - Replace each for while.
+# count = 0
+# while count < students.length
+  # puts "#{count + 1}. #{students[count][:name]} (#{students[count][:cohort]} cohort) #{students[count][:hobbies]}".center(100) 
+  # count += 1
+# end
+
+# Ex 1 - Use each loop to print students
 # students.each_with_index do |student, index|
  # if student[:name].upcase[0] == 'D' && student[:name].length > 12 # Ex 2 & 3 - Print if begin 'D' & > 12 charachters.
   #  puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" # Ex 1 - Add number using each_with_index.
@@ -98,8 +114,8 @@ def print_footer(students)
 end
 
 # Call methods and print output
+input_students(students)
 print_header
 print(students)
 print_footer(students)
-input_students(students)
 #Ex 6 - Center output
