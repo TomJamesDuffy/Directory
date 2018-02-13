@@ -39,11 +39,16 @@ end
 # Method to print each student 
 
 def print(students)
-  students.each_with_index do |student, index|
-    if student[:name].upcase[0] == 'D' && student[:name].length > 12 # Ex 2 & 3 - Print if begin 'D' & > 12 charachters.
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" # Ex 1 - Add number using each_with_index
-    end
+  count = 0
+  while count < students.length
+    puts "#{count + 1}. #{students[count][:name]} (#{students[count][:cohort]} cohort)" # Ex 4 - Replace each for while.  
+    count += 1
   end
+# students.each_with_index do |student, index|
+ # if student[:name].upcase[0] == 'D' && student[:name].length > 12 # Ex 2 & 3 - Print if begin 'D' & > 12 charachters.
+  #  puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" # Ex 1 - Add number using each_with_index.
+ # end
+# end
 end
 
 # Method to print each student
