@@ -17,46 +17,47 @@ students = [
 # Method to add additional students as required
 
 def input_students(current_students) # Ex 7 - Requests name, cohort, hobbies, deals with empty value, allows user to edit.
+# Ex 10 - Replace chomp with .gsub("\n", "")
   finished = false
   until finished
     puts "add - adds student, edit - edits student, exit - exits program"
-    choice = gets.chomp
+    choice = gets.gsub("\n", "")
     if choice == "add"
       puts "name?"
-      name = gets.chomp
+      name = gets.gsub("\n", "")
         if name == ""
           name = "no name entered"
         end
       puts "cohort?"
-      cohort = gets.chomp
+      cohort = gets.gsub("\n", "")
         if cohort == ""
           cohort = "no cohort entered"
         end
       puts "hobbies?"
-      hobbies = gets.chomp
+      hobbies = gets.gsub("\n", "")
         if hobbies == ""
           hobbies = "no hobbies entered"
         end
       current_students << {name: name.to_sym, cohort: cohort.to_sym, hobbies: hobbies.to_sym}
     elsif choice == "edit"
       puts "enter name of student"
-      edit_student = gets.chomp
+      edit_student = gets.gsub("\n", "")
       current_students.each do |h|
         if h[:name] == edit_student
           puts "what would you like to edit?"
           puts "name, cohort or hobbies"
-          edit_variable = gets.chomp
+          edit_variable = gets.gsub("\n", "")
           if edit_variable == "name"
             puts "enter what you wish the name to be"
-            name = gets.chomp
+            name = gets.gsub("\n", "")
             h[:name] = name
           elsif edit_variable == "cohort"
             puts "enter desired cohort"
-            cohort = gets.chomp
+            cohort = gets.gsub("\n", "")
             h[:cohort] = cohort
           elsif edit_variable == "hobbies"
             puts "enter desired hobby"
-            hobby = gets.chomp
+            hobby = gets.gsub("\n", "")
             h[:hobbies] = hobby
           end
         end
@@ -110,7 +111,11 @@ end
 # Method to print each student
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(100)
+  if students.length == 1
+    puts "Overall, we have #{students.count} great student".center(100) #Ex 9 - If only one student.
+  else  
+    puts "Overall, we have #{students.count} great students".center(100)
+  end
 end
 
 # Call methods and print output
