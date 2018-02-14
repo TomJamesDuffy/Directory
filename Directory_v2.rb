@@ -18,15 +18,20 @@ end
 def process(selection)
   case selection
   when "1"
+    puts "1 was selected"
     input_students
   when "2"
+    puts "2 was selected"
     show_students
-  when "9"
-    exit # this will cause the program to terminate
   when "3"
+    puts "3 was selected"
     save_students
   when "4"
+    puts "4 was selected"
     load_students
+  when "9"
+    puts "9 was selected"
+    exit # this will cause the program to terminate
   else
     puts "I don't know what you meant, try again"
   end
@@ -40,11 +45,15 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_to_students 
     puts "Now we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
   end
+end
+
+def add_to_students
+  @students << {name: name, cohort: :november}
 end
 
 def show_students
@@ -69,35 +78,34 @@ def print_footer
 end
 
 def save_students
+  puts "What is the name you would like to save the file"
+  filename = gets.chomp
   # open the file for writing
-  file = File.open("students.csv", "w")
+  CSV.open(filename), "wb") do |csv|
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
+    end
   end
   file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  puts "What is the name of the file"
+  filename = gets.chomp
+  CSV.foreach(filename) do |row|
+      name, cohort = row.chomp.split(',')
+      add_to_students
   end
-  file.close
 end
 
 def try_load_students
-  filename = ARGV.first# first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
+  if File.exists? "students.csv" # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
+    filename = "students.csv"
     puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
   end
 end
 
