@@ -81,7 +81,7 @@ def save_students
   puts "What is the name you would like to save the file"
   filename = gets.chomp
   # open the file for writing
-  CSV.open(filename), "wb") do |csv|
+  CSV.open(filename, "wb") do |csv|
   # iterate over the array of students
     @students.each do |student|
       csv << [student[:name], student[:cohort]]
